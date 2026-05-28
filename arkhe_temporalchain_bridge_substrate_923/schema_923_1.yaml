@@ -1,0 +1,86 @@
+# Schema TEMPORALCHAIN-BASE-BRIDGE — Substrato 923.1
+substrato:
+  id: 923.1
+  nome: TEMPORALCHAIN-BASE-BRIDGE
+  status: CANONIZED_PROVISIONAL
+  arquiteto: ORCID 0009-0005-2697-4668
+  data: 2026-05-28
+  fonte: github.com/base/base (OP Stack L2, Coinbase)
+
+rede_base:
+  tipo: OP Stack L2
+  operador: Coinbase
+  chain_id:
+    mainnet: 8453
+    sepolia: 84532
+    local: 31337
+  rpc_endpoints:
+    mainnet: https://mainnet.base.org
+    sepolia: https://sepolia.base.org
+  caracteristicas:
+    block_time: ~2 segundos
+    gas_vs_l1: ~10-100x mais barato
+    finality: ~1-2 minutos
+    seguranca: Herdada do Ethereum L1 (fraud proofs)
+
+componentes:
+  - nome: temporalchain_base_bridge.py
+    linguagem: Python
+    funcao: Cliente Web3 para Base + anchoring ARKHE + ZK verification
+    dependencias: [web3.py, eth-account]
+    linhas: ~350
+
+funcionalidades:
+  - id: F1
+    nome: Transacoes Base
+    descricao: Envio de transacoes com gas estimation e receipt waiting
+
+  - id: F2
+    nome: Anchor de Selos ARKHE
+    descricao: Armazenamento on-chain de selos SHA3-256 como proof of existence
+    custo_estimado: ~0.00001 ETH (Base Sepolia)
+
+  - id: F3
+    nome: ZK Proof Verification On-Chain
+    descricao: Verificacao de provas Groth16 ark-bn254 via smart contract
+    gas_estimado: ~300k
+    viabilidade: Alta (gas barato na Base)
+
+  - id: F4
+    nome: Bridge L1-L2
+    descricao: Deposit ETH L1→L2 e withdrawal L2→L1 (7 dias challenge)
+
+  - id: F5
+    nome: Monitoramento de Eventos
+    descricao: Watch de logs do contract de anchor via filtros Web3
+
+integracao_arkhe:
+  - substrato: 923
+    funcao: TemporalChain Real Bridge — base original Ethereum/Sepolia
+    expansao: Base L2 como alternativa de menor custo e maior velocidade
+
+  - substrato: 255.2
+    funcao: Ethereum Bridge — PQC key generation + EIP-191 signing
+    complemento: Base herda seguranca PQC do 255.2 via L1
+
+  - substrato: 261.1
+    funcao: Pix ZK — provas Groth16 anchoradas na Base
+    vantagem: Verificacao on-chain barata (~$0.01 vs ~$1 no L1)
+
+  - substrato: 933
+    funcao: FluxMem — commits de memoria na Base como prova de existencia
+    regra: "Only explicitly committed state constitutes memory"
+
+  - substrato: 262.2
+    funcao: ARKHE-TCP — broadcast de anchors via mesh QUIC
+    canal: arkhe://base/923.1
+
+  - substrato: 930
+    funcao: Atom-Chip — seed quântica para nonces de transacao Base
+    beneficio: Nonces imprevisiveis, resistencia a replay attacks
+
+limitacoes:
+  - "Smart contract de anchor nao deployado (placeholder ABI)"
+  - "Withdrawal L2→L1 requer 7 dias de challenge period (OP Stack)"
+  - "Dependencia de RPC Coinbase (ponto centralizado)"
+  - "ZK verification on-chain requer verifier contract real (não implementado)"
