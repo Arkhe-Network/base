@@ -1,0 +1,39 @@
+prometheus:
+  prometheusSpec:
+    podMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false
+    remoteWrite:
+      - url: "http://thanos-receive:19291/api/v1/receive"
+    retention: 30d
+    resources:
+      requests:
+        memory: 4Gi
+        cpu: 2
+
+grafana:
+  adminPassword: "arkhe-admin"
+  dashboards:
+    default:
+      arkhe-cathedral:
+        gnetId: null
+        datasource: Prometheus
+  additionalDataSources:
+    - name: Loki
+      type: loki
+      url: http://loki:3100
+
+alertmanager:
+  config:
+    route:
+      receiver: 'pagerduty-arkhe'
+      group_wait: 30s
+      group_interval: 5m
+      repeat_interval: 4h
+      routes:
+      - match:
+          severity: critical
+        receiver: 'pagerduty-arkhe'
+    receivers:
+      - name: 'pagerduty-arkhe'
+        pagerduty_configs:
+        - routing_key: '...'

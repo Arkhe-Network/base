@@ -1,0 +1,28 @@
+global:
+  cloud: aws  # ou oci
+  domain: arkhe.cathedral
+
+temporalchain:
+  replicas: 3
+  image: arkhe-os/temporalchain:1.0.0
+  persistence:
+    storageClass: fast-ssd
+    size: 100Gi
+  ingress:
+    enabled: true
+
+hermeszk:
+  replicas: 2
+  image: arkhe-os/hermeszk:1.0.0
+  gpu:
+    enabled: true
+    count: 1
+
+brasilfinance:
+  replicas: 3
+  image: arkhe-os/brasilfinance:1.0.0
+  pix:
+    endpoint: https://pix.bcb.gov.br
+    certSecret: pix-mtls
+
+# ... demais serviços
