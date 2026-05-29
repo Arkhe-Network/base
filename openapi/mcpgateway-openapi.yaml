@@ -1,0 +1,139 @@
+openapi: 3.1.0
+info:
+  title: ARKHE MCP Gateway API
+  version: 1.0.0
+  description: Adaptador Model Context Protocol para ferramentas ARKHE
+servers:
+  - url: https://api.arkhe.cathedral/api/v1
+paths:
+  /mcp/tools:
+    get:
+      operationId: listTools
+      summary: Lista ferramentas disponiveis
+      parameters:
+        - name: model_id
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: filter_by_permissions
+          in: query
+          schema:
+            type: boolean
+            default: true
+      responses:
+        '200':
+          description: Lista de ferramentas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tools:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ToolSpec'
+
+  /mcp/tools/{tool_name}/execute:
+    post:
+      operationId: executeTool
+      summary: Executa uma ferramenta
+      parameters:
+        - name: tool_name
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                header:
+                  $ref: '#/components/schemas/ArkheHeader'
+                model_id:
+                  type: string
+                arguments_json:
+                  type: string
+                  format: byte
+                capture_epistemic:
+                  type: boolean
+                  default: false
+      responses:
+        '200':
+          description: Execucao concluida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecuteToolResponse'
+
+  /mcp/notifications:
+    get:
+      operationId: streamNotifications
+      summary: Stream de notificacoes (SSE)
+      parameters:
+        - name: model_id
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: notification_types
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: Server-Sent Events stream
+          content:
+            text/event-stream:
+              schema:
+                type: string
+
+components:
+  schemas:
+    ArkheHeader:
+      $ref: './temporalchain-openapi.yaml#/components/schemas/ArkheHeader'
+
+    ToolSpec:
+      type: object
+      properties:
+        tool_name:
+          type: string
+        description:
+          type: string
+        input_schema_json:
+          type: string
+        output_schema_json:
+          type: string
+        required_permissions:
+          type: array
+          items:
+            type: string
+        target_substrate:
+          type: string
+        avg_latency_ms:
+          type: number
+
+    ExecuteToolResponse:
+      type: object
+      properties:
+        execution_id:
+          type: string
+        success:
+          type: boolean
+        result_json:
+          type: string
+          format: byte
+        error_message:
+          type: string
+          nullable: true
+        epistemic_state_hash:
+          type: string
+          format: byte
+          nullable: true
+        execution_ms:
+          type: integer

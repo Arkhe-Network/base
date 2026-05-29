@@ -1,0 +1,4 @@
+apiVersion: v2
+name: arkhe-cathedral
+version: 3.3.0
+description: A Catedral Poliglota - Plano Code Cathedral

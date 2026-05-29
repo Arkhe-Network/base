@@ -1,0 +1,58 @@
+apiVersion: arkhe.schemas/v1
+kind: SchemaBundle
+metadata:
+  name: hermeszk-v1
+  version: "1.0.0"
+  substrate: "255"
+  seal: "sha3-256:j0k1l2..."
+spec:
+  service: HermesZKService
+  rpcs:
+    GenerateProof:
+      request:
+        header: ArkheHeader
+        circuit_id: {type: string}
+        private_inputs: {type: map, key: string, value: bytes}
+        public_inputs: {type: map, key: string, value: bytes}
+        encrypt_witness: {type: boolean, default: false}
+      response:
+        proof: {type: bytes}
+        public_inputs: {type: bytes}
+        vk: {type: bytes}
+        proof_hash: {type: bytes, format: sha3-256}
+        proving_time_ms: {type: integer}
+        proof_size_bytes: {type: integer}
+
+    VerifyProof:
+      request:
+        header: ArkheHeader
+        proof: {type: bytes}
+        public_inputs: {type: bytes}
+        vk: {type: bytes}
+        verify_on_chain: {type: boolean, default: false}
+      response:
+        valid: {type: boolean}
+        on_chain_tx_hash: {type: string, nullable: true}
+        error_message: {type: string, nullable: true}
+
+    ListCircuits:
+      request:
+        curve_filter: {type: string, nullable: true}
+      response:
+        circuits: {type: array, items: CircuitSpec}
+
+  messages:
+    CircuitSpec:
+      fields:
+        circuit_id: {type: string}
+        curve:
+          type: string
+          enum: [bn254, bls12_381]
+        constraint_count: {type: integer}
+        vk_hash: {type: bytes, format: sha3-256}
+
+  config:
+    proving_backend: "ark-works-gpu"
+    max_constraints_gpu: 1000000
+    circuit_registry_immutable: true
+    default_curve: "bn254"

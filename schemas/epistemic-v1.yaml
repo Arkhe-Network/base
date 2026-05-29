@@ -1,0 +1,65 @@
+apiVersion: arkhe.schemas/v1
+kind: SchemaBundle
+metadata:
+  name: epistemic-v1
+  version: "1.0.0"
+  substrate: "912"
+  seal: "sha3-256:g7h8i9..."
+spec:
+  service: EpistemicCommitService
+  rpcs:
+    CommitState:
+      request:
+        header: ArkheHeader
+        state: EpistemicState
+        anchor_on_chain: {type: boolean, default: false}
+      response:
+        state_hash: {type: bytes, format: sha3-256}
+        temporal_event_id: {type: string, nullable: true}
+        seal: ArkheSeal
+
+    GetState:
+      request:
+        state_hash: {type: bytes, format: sha3-256}
+      response: EpistemicState
+
+    DiffStates:
+      request:
+        state_hash_a: {type: bytes, format: sha3-256}
+        state_hash_b: {type: bytes, format: sha3-256}
+        semantic_only: {type: boolean, default: false}
+      response:
+        intent_deltas: {type: array, items: IntentDelta}
+        memory_deltas: {type: array, items: MemoryDelta}
+        drift_score: {type: float, min: 0.0, max: 1.0}
+
+  messages:
+    EpistemicState:
+      fields:
+        state_hash: {type: bytes, format: sha3-256}
+        timestamp_ns: {type: integer, format: int64}
+        agent_id: {type: string}
+        session_id: {type: string}
+        context_window:
+          type: bytes
+          max_size: 1048576  # 1MB
+          compression: gzip
+        active_memory: {type: array, items: MemoryShard}
+        intent: DeclaredIntent
+        sources: {type: array, items: GroundingSource}
+
+    DeclaredIntent:
+      fields:
+        action_type:
+          type: string
+          enum: [QUERY, MODIFY, TRANSACT, COMMUNICATE]
+        target_substrate: {type: string}
+        stated_goal:
+          type: string
+          max_length: 500
+        confidence: {type: float, min: 0.0, max: 1.0}
+
+  config:
+    context_window_max_mb: 1
+    retention_states_days: 365
+    diff_similarity_threshold: 0.5

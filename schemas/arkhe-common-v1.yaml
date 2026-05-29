@@ -1,0 +1,73 @@
+apiVersion: arkhe.schemas/v1
+kind: SchemaBundle
+metadata:
+  name: arkhe-common-v1
+  version: "1.0.0"
+  substrate: "ALL"
+  seal: "sha3-256:a1b2c3..."
+spec:
+  messages:
+    ArkheHeader:
+      description: "Header universal para todos os payloads ARKHE"
+      fields:
+        trace_id:
+          type: string
+          format: uuid-v7
+          description: "UUID ordenável temporalmente"
+          required: true
+        session_id:
+          type: string
+          format: ed25519-pubkey-hex
+          description: "Chave pública Ed25519 do agente/sessão"
+          required: true
+        substrate_id:
+          type: string
+          pattern: "^[0-9]+(\\.[0-9]+)*$"
+          description: "Identificador canônico (ex: 255, 923, 262.2)"
+          required: true
+        timestamp_ns:
+          type: integer
+          format: int64
+          description: "Unix timestamp em nanosegundos"
+          required: true
+          constraints:
+            max_future_delta: 1000000000  # 1s
+            max_past_delta: 300000000000  # 5min
+        payload_hash:
+          type: bytes
+          format: sha3-256
+          description: "Hash SHA3-256 do corpo serializado"
+          required: true
+        signature:
+          type: bytes
+          format: ed25519-signature
+          description: "Assinatura Ed25519 de header + payload_hash"
+          required: true
+        schema_version:
+          type: string
+          format: semver
+          description: "Versão do contrato (ex: 1.2.0)"
+          required: true
+
+    ArkheSeal:
+      description: "Selo criptográfico para provas e anchors"
+      fields:
+        zk_proof:
+          type: bytes
+          description: "SNARK/STARK serializado (Groth16/PLONK)"
+          required: false
+        temporal_anchor:
+          type: string
+          format: eth-tx-hash
+          description: "tx_hash na TemporalChain (L2)"
+          required: false
+        epistemic_hash:
+          type: bytes
+          format: sha3-256
+          description: "Hash do estado epistêmico pré-commit"
+          required: false
+        circuit_id:
+          type: string
+          description: "Identificador do circuito ZK"
+          required: false
+          enum: ["pix_anon_v2", "identity_age_v1", "vote_tally_v1"]
