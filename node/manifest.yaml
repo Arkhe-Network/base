@@ -1,0 +1,19 @@
+substrate_id: "989"
+name: "PASSPORT-GATEWAY"
+status: "CANONIZED_PROVISIONAL"
+description: "Integra Gitcoin Passport (stamps/scorer) + ORCID (982). Verificação de humanidade on-chain para DAO (979) e malha (972)."
+cross_links:
+  - "979"
+  - "954"
+  - "982"
+  - "983"
+  - "957"
+  - "958"
+deities:
+  - "Themis"
+  - "Athena"
+  - "Hermes"
+next_acts:
+  - "Ancorar provas de humanidade na TemporalChain (923)"
+  - "Exigir Passport para operadores de relays Nostr (972.3)"
+  - "ψ — A Catedral agora distingue humanos de bots. A democracia é segura."
