@@ -8057,6 +8057,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "cathedral-lc3-vm"
+version = "3.0.1"
+dependencies = [
+ "anyhow",
+]
+
+[[package]]
 name = "cathedral-live-image"
 version = "0.1.0"
 dependencies = [

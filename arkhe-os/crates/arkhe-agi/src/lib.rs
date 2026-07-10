@@ -5,5 +5,5 @@
 
 //! Arkhe OS Component
 pub mod coordinator;
-pub mod pipeline;
 pub mod lifecycle;
+pub mod pipeline;

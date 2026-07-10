@@ -5,7 +5,7 @@
 
 //! Arkhe OS Component
 pub mod causal_attention;
-pub mod episodic_memory;
-pub mod semantic_memory;
 pub mod counterfactual;
 pub mod emerge;
+pub mod episodic_memory;
+pub mod semantic_memory;

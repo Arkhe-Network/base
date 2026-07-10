@@ -4,6 +4,6 @@
 #![allow(unsafe_code)]
 
 //! Arkhe OS Component
-pub mod monitor;
 pub mod escalate;
+pub mod monitor;
 pub mod reflect;

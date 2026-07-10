@@ -12,7 +12,7 @@ test:
 
 # Run all action tests with the CI profile
 test-ci:
-    cargo nextest run -P ci --locked -p base-action-harness --cargo-profile ci
+    cargo nextest run -P ci -p base-action-harness --cargo-profile ci
 
 # Run action tests with output shown (useful when debugging a failing test)
 test-verbose:
@@ -28,4 +28,4 @@ lint:
 
 # Clippy the action harness crate with the CI profile
 lint-ci:
-    cargo clippy --locked -p base-action-harness --all-targets --profile ci -- -D warnings
+    cargo clippy -p base-action-harness --all-targets --profile ci -- -D warnings

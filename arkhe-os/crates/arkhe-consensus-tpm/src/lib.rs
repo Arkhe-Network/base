@@ -4,5 +4,5 @@
 #![allow(unsafe_code)]
 
 //! Arkhe OS Component
-pub mod tpm;
 pub mod consensus;
+pub mod tpm;

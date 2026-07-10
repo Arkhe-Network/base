@@ -3,6 +3,9 @@ resolver = "3"
 members = [
     "crates/arkhe-core",
     "crates/arkhe-identity",
+    "crates/arkhe-gdid",
+    "crates/arkhe-octonions",
+    "crates/arkhe-interop",
     "crates/arkhe-asset",
     "crates/arkhe-bridge",
     "crates/arkhe-payment",
@@ -14,6 +17,7 @@ members = [
     "crates/arkhe-apex",
     "crates/arkhe-agi",
     "crates/arkhe-consensus-tpm",
+    "crates/governance/arkhe-git-governance",
     "crates/arkhe-bootmaker",
     "crates/arkhe-ventoy-adapter",
     "crates/arkhe-openwrt-adapter",
@@ -28,6 +32,10 @@ repository = "https://github.com/arkhe-os/arkhe-os"
 rust-version = "1.85.0"
 
 [workspace.dependencies]
+# Novos Crates GDID e Octonions
+arkhe-gdid = { path = "crates/arkhe-gdid", version = "0.1.0" }
+arkhe-octonions = { path = "crates/arkhe-octonions", version = "0.2.0" }
+
 # Runtime
 tokio = { version = "1.40", features = ["full"] }
 async-trait = "0.1"
