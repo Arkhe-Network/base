@@ -108,7 +108,7 @@ zepter-fix:
 
 # Installs cargo-nextest if not present
 install-nextest:
-    @command -v cargo-nextest >/dev/null 2>&1 || cargo install cargo-nextest --locked
+    @command -v cargo-nextest >/dev/null 2>&1 || cargo install cargo-nextest
 
 # Runs tests across workspace with all features enabled (excludes devnet)
 test: install-nextest build::contracts build::elfs
@@ -132,7 +132,7 @@ test-affected base="main": install-nextest build::contracts build::elfs
 
 # Runs tests with ci profile for minimal disk usage
 test-ci: install-nextest build::contracts
-    cargo nextest run -P ci --locked --workspace --all-features --exclude devnet --cargo-profile ci
+    cargo nextest run -P ci --workspace --all-features --exclude devnet --cargo-profile ci
 
 # Runs tests only for affected crates with ci profile (for PRs)
 test-affected-ci base="main": install-nextest build::contracts
@@ -148,7 +148,7 @@ test-affected-ci base="main": install-nextest build::contracts
         exit 0
     fi
     echo "Testing affected crates:${pkg_args[*]}"
-    cargo nextest run -P ci --locked --all-features --cargo-profile ci "${pkg_args[@]}" || {
+    cargo nextest run -P ci --all-features --cargo-profile ci "${pkg_args[@]}" || {
         code=$?
         if [ $code -eq 4 ]; then
             echo "No tests to run."

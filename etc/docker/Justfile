@@ -120,7 +120,7 @@ tests: _install-nextest _build-contracts
 
 # Runs devnet tests with ci profile for minimal disk usage
 tests-ci: _install-nextest _build-contracts
-    cargo nextest run -P ci --locked -p devnet --cargo-profile ci
+    cargo nextest run -P ci -p devnet --cargo-profile ci
 
 # Runs devnet benchmarks
 bench name:

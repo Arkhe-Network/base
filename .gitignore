@@ -31,3 +31,6 @@ arkhe-os/target/
 arkhe-os/target/
 arkhe-os/target/
 arkhe-os/target/
+.lake/
+lake-packages/
+lake-manifest.json

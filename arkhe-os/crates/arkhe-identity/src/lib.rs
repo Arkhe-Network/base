@@ -5,7 +5,7 @@
 
 //! Arkhe OS Component
 pub mod did;
-pub mod vc;
-pub mod mldsa;
 pub mod hybrid;
+pub mod mldsa;
 pub mod resolver;
+pub mod vc;

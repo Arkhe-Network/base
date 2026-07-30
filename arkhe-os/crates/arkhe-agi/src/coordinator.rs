@@ -1,6 +1,6 @@
 use arkhe_agents::{agent::AgentManager, intent::IntentScheduler};
-use arkhe_llm::inference::InferenceEngine;
 use arkhe_identity::mldsa::MldsaSigner;
+use arkhe_llm::inference::InferenceEngine;
 use std::sync::Arc;
 use tokio::sync::Mutex;
 

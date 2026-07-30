@@ -4,7 +4,7 @@
 #![allow(unsafe_code)]
 
 //! Arkhe OS Component
-pub mod uci;
-pub mod ubus;
-pub mod procd;
 pub mod package;
+pub mod procd;
+pub mod ubus;
+pub mod uci;

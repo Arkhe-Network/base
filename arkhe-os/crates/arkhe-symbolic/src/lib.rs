@@ -5,7 +5,7 @@
 
 //! Arkhe OS Component
 pub mod atomspace;
+pub mod grounding;
 pub mod logic;
 pub mod nars;
 pub mod owl;
-pub mod grounding;

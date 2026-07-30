@@ -1,6 +1,6 @@
+use crate::capsule::Capsule;
 use crate::intent::IntentScheduler; // updated since we don't need Intent directly here if we use IntentScheduler
 use arkhe_core::types::{AgentId, CapabilityToken, Intent};
-use crate::capsule::Capsule;
 use std::collections::HashMap;
 
 pub struct Agent {

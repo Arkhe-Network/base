@@ -43,7 +43,7 @@ ALLOWED_FILTER=$(printf '"%s",' "${ALLOWED_DEPS[@]}")
 ALLOWED_FILTER="[${ALLOWED_FILTER%,}]"
 
 # Fetch cargo metadata once, ensuring Cargo.lock is in sync
-METADATA=$(cargo metadata --format-version 1 --no-deps --locked)
+METADATA=$(cargo metadata --format-version 1 --no-deps)
 
 FOUND_VIOLATIONS=false
 

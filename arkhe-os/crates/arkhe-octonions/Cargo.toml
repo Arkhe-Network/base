@@ -1,0 +1,35 @@
+[package]
+name = "arkhe-octonions"
+version = "0.2.0"
+edition = "2021"
+description = "Octonion algebra for AGI (8D hypercomplex numbers, non-associative)"
+rust-version = "1.75.0"
+authors = ["Arkhe(n) Research Group <research@arkhe.org>"]
+license = "MIT OR Apache-2.0"
+
+[dependencies]
+num-traits = { version = "0.2", default-features = false, features = ["libm"] }
+serde = { version = "1.0", features = ["derive"], optional = true }
+zeroize = { version = "1.8", features = ["derive"], optional = true }
+libm = { version = "0.2", default-features = false }
+bytemuck = { version = "1.16", features = ["derive"], optional = true }
+ndarray = { version = "0.16", default-features = false, optional = true }
+wasm-bindgen = { version = "0.2", optional = true }
+js-sys = { version = "0.3", optional = true }
+
+[features]
+default = ["std", "serde", "zeroize", "bytemuck"]
+std = ["num-traits/std"]
+alloc = ["postcard/alloc"]
+serde = ["dep:serde"]
+zeroize = ["dep:zeroize"]
+bytemuck = ["dep:bytemuck"]
+ffi = []
+ndarray = ["dep:ndarray"]
+wasm = ["dep:wasm-bindgen", "dep:js-sys", "std"]
+neural = ["alloc"]
+symbolic = []
+
+[dev-dependencies]
+postcard = { version = "1.0", features = ["alloc"] }
+bincode = "1.3"
