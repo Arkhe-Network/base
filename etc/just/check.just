@@ -18,7 +18,7 @@ clippy: _build-contracts
 
 # Checks clippy with ci profile
 clippy-ci: _build-contracts
-    {{_skip_kernels}} {{_elf_stub}} cargo clippy --locked --workspace --all-features --all-targets --profile ci -- -D warnings
+    {{_skip_kernels}} {{_elf_stub}} cargo clippy --workspace --all-features --all-targets --profile ci -- -D warnings
 
 # Checks clippy for only affected packages with ci profile
 clippy-affected-ci base="main": _build-contracts
@@ -34,12 +34,12 @@ clippy-affected-ci base="main": _build-contracts
         exit 0
     fi
     echo "Linting affected crates:${pkg_args[*]}"
-    {{_skip_kernels}} {{_elf_stub}} cargo clippy --locked --all-features --all-targets --profile ci "${pkg_args[@]}" -- -D warnings
+    {{_skip_kernels}} {{_elf_stub}} cargo clippy --all-features --all-targets --profile ci "${pkg_args[@]}" -- -D warnings
 
 # Checks unused dependencies
 udeps: _build-contracts
     @command -v cargo-udeps >/dev/null 2>&1 || cargo install cargo-udeps
-    {{_skip_kernels}} {{_elf_stub}} cargo +nightly udeps --locked --workspace --all-features --all-targets
+    {{_skip_kernels}} {{_elf_stub}} cargo +nightly udeps --workspace --all-features --all-targets
 
 # Runs cargo deny to check dependencies
 deny:

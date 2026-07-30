@@ -5,5 +5,5 @@
 
 //! Arkhe OS Component
 pub mod iso;
-pub mod usb;
 pub mod sign;
+pub mod usb;

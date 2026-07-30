@@ -1,6 +1,6 @@
-use ml_dsa::{MlDsa87, Signature};
 use arkhe_core::error::{KernelError, Result};
-use signature::{Signer, Verifier, Keypair};
+use ml_dsa::{MlDsa87, Signature};
+use signature::{Keypair, Signer, Verifier};
 
 pub struct MldsaSigner {
     signing_key: ml_dsa::SigningKey<MlDsa87>,
@@ -25,8 +25,10 @@ impl MldsaSigner {
         let encoded_sig = ml_dsa::EncodedSignature::<MlDsa87>::try_from(sig)
             .map_err(|_| KernelError::PqcError("Invalid signature length".to_string()))?;
         let sig_obj = Signature::<MlDsa87>::decode(&encoded_sig)
-             .ok_or_else(|| KernelError::PqcError("Invalid signature".to_string()))?;
-        self.verifying_key.verify(msg, &sig_obj).map_err(|_| KernelError::PqcError("Verify failed".to_string()))?;
+            .ok_or_else(|| KernelError::PqcError("Invalid signature".to_string()))?;
+        self.verifying_key
+            .verify(msg, &sig_obj)
+            .map_err(|_| KernelError::PqcError("Verify failed".to_string()))?;
         Ok(true)
     }
 

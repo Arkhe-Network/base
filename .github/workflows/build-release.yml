@@ -145,7 +145,7 @@ jobs:
             [[ -n "$bin" ]] || continue
             cargo_args+=(--bin "$bin")
           done <<< "${RELEASE_BINS}"
-          cargo build --locked --profile maxperf "${cargo_args[@]}"
+          cargo build --profile maxperf "${cargo_args[@]}"
 
       - name: Package binaries
         run: |

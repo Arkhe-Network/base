@@ -4,8 +4,8 @@
 #![allow(unsafe_code)]
 
 //! Arkhe OS Component
+pub mod adapter;
+pub mod cosmos;
+pub mod ethereum;
 pub mod nomic;
 pub mod taproot;
-pub mod ethereum;
-pub mod cosmos;
-pub mod adapter;

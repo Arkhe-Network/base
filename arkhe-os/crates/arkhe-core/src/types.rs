@@ -39,22 +39,9 @@ pub struct AssetRef {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum Intent {
-    TransferAsset {
-        asset: AssetRef,
-        amount: u64,
-        recipient: Did,
-        priority: u8,
-    },
-    VerifyProof {
-        proof: Vec<u8>,
-        public_inputs: Vec<u8>,
-        priority: u8,
-    },
-    DelegateTask {
-        task: Task,
-        to: AgentId,
-        priority: u8,
-    },
+    TransferAsset { asset: AssetRef, amount: u64, recipient: Did, priority: u8 },
+    VerifyProof { proof: Vec<u8>, public_inputs: Vec<u8>, priority: u8 },
+    DelegateTask { task: Task, to: AgentId, priority: u8 },
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

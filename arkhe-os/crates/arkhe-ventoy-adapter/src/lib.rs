@@ -4,6 +4,6 @@
 #![allow(unsafe_code)]
 
 //! Arkhe OS Component
+pub mod boot;
 pub mod installer;
 pub mod plugin;
-pub mod boot;

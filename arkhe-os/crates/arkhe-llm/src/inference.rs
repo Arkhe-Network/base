@@ -2,7 +2,12 @@ use async_trait::async_trait;
 
 #[async_trait]
 pub trait InferenceEngine: Send + Sync {
-    async fn generate(&self, prompt: &str, temperature: f32, max_tokens: u32) -> Result<String, String>;
+    async fn generate(
+        &self,
+        prompt: &str,
+        temperature: f32,
+        max_tokens: u32,
+    ) -> Result<String, String>;
 }
 
 pub struct LlamaCppEngine {
@@ -12,7 +17,7 @@ pub struct LlamaCppEngine {
 
 impl LlamaCppEngine {
     pub fn new(model_path: &str) -> Self {
-        Self { model_path: model_path.to_string(), /* ctx: None */ }
+        Self { model_path: model_path.to_string() /* ctx: None */ }
     }
 
     /* pub fn load(&mut self) -> Result<(), String> {
@@ -26,7 +31,12 @@ impl LlamaCppEngine {
 
 #[async_trait]
 impl InferenceEngine for LlamaCppEngine {
-    async fn generate(&self, _prompt: &str, _temperature: f32, _max_tokens: u32) -> Result<String, String> {
+    async fn generate(
+        &self,
+        _prompt: &str,
+        _temperature: f32,
+        _max_tokens: u32,
+    ) -> Result<String, String> {
         Ok("Mock LLM Output".to_string())
     }
 }

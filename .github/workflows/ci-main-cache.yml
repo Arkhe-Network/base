@@ -103,4 +103,4 @@ jobs:
         if: steps.elf-inputs.outputs.needs_rebuild == 'true'
         run: |
           just build::contracts
-          BASE_SUCCINCT_ELF_STUB=1 cargo build --locked --workspace --all-targets --profile ci
+          BASE_SUCCINCT_ELF_STUB=1 cargo build --workspace --all-targets --profile ci

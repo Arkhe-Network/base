@@ -52,7 +52,7 @@ COPY . .
 RUN --mount=type=cache,target=/usr/local/cargo/registry,id=enclave-registry,sharing=locked \
     --mount=type=cache,target=/usr/local/cargo/git,id=enclave-git,sharing=locked \
     --mount=type=cache,target=/app/target,id=enclave-target,sharing=locked \
-    cargo build --release --locked --target x86_64-unknown-linux-musl --package base-prover-nitro-enclave --bin base-prover-nitro-enclave && \
+    cargo build --release --target x86_64-unknown-linux-musl --package base-prover-nitro-enclave --bin base-prover-nitro-enclave && \
     cp target/x86_64-unknown-linux-musl/release/base-prover-nitro-enclave /app/base-prover-nitro-enclave
 
 COPY --from=bootstrap /build/out bootstrap
@@ -77,7 +77,7 @@ COPY etc/docker/nitro-enclave/aws-nitro-enclaves-image-format.Cargo.lock Cargo.l
 RUN --mount=type=cache,target=/usr/local/cargo/registry,id=eif-registry,sharing=locked \
     --mount=type=cache,target=/usr/local/cargo/git,id=eif-git,sharing=locked \
     --mount=type=cache,target=/build/target,id=eif-target,sharing=locked \
-    cargo build --all --release --locked && \
+    cargo build --all --release && \
     cp target/release/eif_build /usr/local/bin/eif_build
 
 COPY etc/docker/nitro-enclave/cmdline-x86_64 cmdline
@@ -115,7 +115,7 @@ RUN git init && \
 RUN --mount=type=cache,target=/root/.cargo/registry,id=nitro-cli-registry,sharing=locked \
     --mount=type=cache,target=/root/.cargo/git,id=nitro-cli-git,sharing=locked \
     --mount=type=cache,target=/app/target,id=nitro-cli-target,sharing=locked \
-    cargo build --release --locked && \
+    cargo build --release && \
     cp target/release/nitro-cli /usr/local/bin/nitro-cli
 
 COPY etc/docker/nitro-enclave/nitro-cli-config.patch .
