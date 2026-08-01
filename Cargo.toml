@@ -26,7 +26,7 @@ members = [
   "bridge",
   "crates/cathedral-cse",
   "crates/cathedral-live-image",
-  "buzz/crates/*",
+
   "buzz/examples/countdown-bot",
   "sdk-rs",
   "zk-circuits",
@@ -96,7 +96,7 @@ members = [
   "actions/*", "bridge",
   "crates/cathedral-cse",
   "crates/cathedral-live-image",
-  "buzz/crates/*",
+
   "buzz/examples/countdown-bot",
     "crates/arkhe-eval",
 ]
@@ -116,7 +116,7 @@ default-members = [
   "bridge",
   "crates/cathedral-cse",
   "crates/cathedral-live-image",
-  "buzz/crates/*",
+
   "buzz/examples/countdown-bot",
   "sdk-rs",
   "zk-circuits",
