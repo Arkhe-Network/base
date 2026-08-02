@@ -2,7 +2,6 @@
 
 use std::sync::Arc;
 
-
 use crate::governance::GovernanceEngine;
 
 /// Servidor MCP da GovernanceEngine.

@@ -5,6 +5,7 @@ max_concurrency = 16
 max_retries = 3
 retry_wait_time = 5
 cache_exclude_status = ["429", "502", "503"]
+exclude = [
     "http://localhost:6333/healthz",
     "http://localhost/",
     "http://localhost:3000/",
