@@ -4106,7 +4106,7 @@ version = "0.0.0"
 dependencies = [
  "base-metrics",
  "base-ring-buffer",
- "criterion",
+ "criterion 0.8.2",
  "futures",
  "http 1.5.0",
  "metrics",
@@ -4371,7 +4371,7 @@ dependencies = [
  "base-common-chains",
  "base-precompile-macros",
  "base-precompile-storage",
- "criterion",
+ "criterion 0.8.2",
  "k256",
  "revm",
  "rstest",
@@ -4540,7 +4540,7 @@ dependencies = [
  "base-consensus-upgrades",
  "base-metrics",
  "base-protocol",
- "criterion",
+ "criterion 0.8.2",
  "metrics",
  "proptest",
  "serde",
@@ -5352,7 +5352,7 @@ dependencies = [
  "base-node-core",
  "base-node-runner",
  "base-test-utils",
- "criterion",
+ "criterion 0.8.2",
  "derive_more 2.1.1",
  "eyre",
  "futures",
@@ -5634,7 +5634,7 @@ dependencies = [
  "base-node-runner",
  "base-test-utils",
  "chrono",
- "criterion",
+ "criterion 0.8.2",
  "eyre",
  "futures",
  "jsonrpsee",
@@ -5870,7 +5870,7 @@ dependencies = [
  "alloy-transport-http 2.2.0",
  "alloy-trie",
  "base-common-rpc-types-engine",
- "criterion",
+ "criterion 0.8.2",
  "proptest",
  "rand 0.9.5",
  "reqwest 0.13.4",
@@ -9126,6 +9126,32 @@ dependencies = [
 
 [[package]]
 name = "criterion"
+version = "0.5.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f2b12d017a929603d80db1831cd3a24082f8137ce19c69e6447f54f5fc8d692f"
+dependencies = [
+ "anes",
+ "cast",
+ "ciborium",
+ "clap",
+ "criterion-plot 0.5.0",
+ "is-terminal",
+ "itertools 0.10.5",
+ "num-traits",
+ "once_cell",
+ "oorandom",
+ "plotters",
+ "rayon",
+ "regex",
+ "serde",
+ "serde_derive",
+ "serde_json",
+ "tinytemplate",
+ "walkdir",
+]
+
+[[package]]
+name = "criterion"
 version = "0.8.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "950046b2aa2492f9a536f5f4f9a3de7b9e2476e575e05bd6c333371add4d98f3"
@@ -9135,7 +9161,7 @@ dependencies = [
  "cast",
  "ciborium",
  "clap",
- "criterion-plot",
+ "criterion-plot 0.8.2",
  "itertools 0.13.0",
  "num-traits",
  "oorandom",
@@ -9148,6 +9174,16 @@ dependencies = [
  "tinytemplate",
  "tokio",
  "walkdir",
+]
+
+[[package]]
+name = "criterion-plot"
+version = "0.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6b50826342786a51a89e2da3a28f1c32b06e387201bc2d19791f622c673706b1"
+dependencies = [
+ "cast",
+ "itertools 0.10.5",
 ]
 
 [[package]]
@@ -15635,6 +15671,8 @@ dependencies = [
  "num-integer",
  "num-traits",
  "rawpointer",
+ "rayon",
+ "serde",
 ]
 
 [[package]]
@@ -17924,6 +17962,50 @@ checksum = "85eae3c4ed2f50dcfe72643da4befc30deadb458a9b590d720cde2f2b1e97da9"
 dependencies = [
  "zerocopy",
 ]
+
+[[package]]
+name = "pqcrypto-dilithium"
+version = "0.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "685de0fa68c6786559d5fcdaa414f0cd68ef3f5d162f61823bd7424cd276726f"
+dependencies = [
+ "cc",
+ "glob",
+ "libc",
+ "pqcrypto-internals",
+ "pqcrypto-traits",
+]
+
+[[package]]
+name = "pqcrypto-internals"
+version = "0.2.11"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b4a326caf27cbf2ac291ca7fd56300497ba9e76a8cc6a7d95b7a18b57f22b61d"
+dependencies = [
+ "cc",
+ "dunce",
+ "getrandom 0.3.4",
+ "libc",
+]
+
+[[package]]
+name = "pqcrypto-kyber"
+version = "0.8.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "15c00293cf898859d0c771455388054fd69ab712263c73fdc7f287a39b1ba000"
+dependencies = [
+ "cc",
+ "glob",
+ "libc",
+ "pqcrypto-internals",
+ "pqcrypto-traits",
+]
+
+[[package]]
+name = "pqcrypto-traits"
+version = "0.3.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "94e851c7654eed9e68d7d27164c454961a616cf8c203d500607ef22c737b51bb"
 
 [[package]]
 name = "precomputed-hash"
@@ -23042,6 +23124,20 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cfcb3a22ef46e85b45de6ee7e79d063319ebb6594faafcf1c225ea92ab6e9b92"
 dependencies = [
  "semver 1.0.28",
+]
+
+[[package]]
+name = "rustfft"
+version = "6.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "21db5f9893e91f41798c88680037dba611ca6674703c1a18601b01a72c8adb89"
+dependencies = [
+ "num-complex 0.4.6",
+ "num-integer",
+ "num-traits",
+ "primal-check",
+ "strength_reduce",
+ "transpose",
 ]
 
 [[package]]
@@ -29146,6 +29242,34 @@ checksum = "7e689342a48d2ea927c87ea50cabf8594854bf940e9310208848d680d668ed85"
 dependencies = [
  "num-conv",
  "time-core",
+]
+
+[[package]]
+name = "timechain"
+version = "0.4.0"
+dependencies = [
+ "aes-gcm",
+ "bincode 1.3.3",
+ "chrono",
+ "criterion 0.5.1",
+ "futures",
+ "hkdf",
+ "ndarray 0.15.6",
+ "num-complex 0.4.6",
+ "pqcrypto-dilithium",
+ "pqcrypto-kyber",
+ "pqcrypto-traits",
+ "proptest",
+ "rand 0.8.6",
+ "rayon",
+ "rustfft",
+ "serde",
+ "sha2 0.10.9",
+ "sha3 0.10.9",
+ "subtle",
+ "thiserror 1.0.69",
+ "tokio",
+ "zeroize",
 ]
 
 [[package]]
