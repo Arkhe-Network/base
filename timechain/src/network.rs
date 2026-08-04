@@ -1,9 +1,10 @@
-use crate::error::TimechainError;
-use crate::handshake::HandshakeMessage;
-use crate::retro::EchoSignal;
-use crate::timechain::TimeBlock;
-use serde::{Deserialize, Serialize};
 use std::net::SocketAddr;
+
+use serde::{Deserialize, Serialize};
+
+use crate::{
+    error::TimechainError, handshake::HandshakeMessage, retro::EchoSignal, timechain::TimeBlock,
+};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum NetworkMessage {
     Echo { echo: EchoSignal, block: TimeBlock },

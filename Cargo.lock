@@ -4007,7 +4007,7 @@ dependencies = [
  "chrono",
  "clap",
  "clap_builder",
- "criterion",
+ "criterion 0.8.2",
  "ctor",
  "dashmap 6.2.1",
  "derive_more 2.1.1",
@@ -18060,6 +18060,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "primal-check"
+version = "0.3.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "dc0d895b311e3af9902528fbb8f928688abbd95872819320517cc24ca6b2bd08"
+dependencies = [
+ "num-integer",
+]
+
+[[package]]
 name = "primeorder"
 version = "0.13.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -29260,7 +29269,7 @@ dependencies = [
  "pqcrypto-kyber",
  "pqcrypto-traits",
  "proptest",
- "rand 0.8.6",
+ "rand 0.8.7",
  "rayon",
  "rustfft",
  "serde",

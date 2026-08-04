@@ -1,7 +1,6 @@
+use serde::{Deserialize, Serialize};
 
 use crate::retro::EchoSignal;
-
-use serde::{Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct ShadowHash(pub [u8; 32]);
 #[derive(Debug, Clone, Serialize, Deserialize)]
