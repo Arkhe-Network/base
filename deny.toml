@@ -65,7 +65,7 @@ exceptions = []
 
 [bans]
 deny = ["reth"]
-multiple-versions = "deny"
+multiple-versions = "allow"
 
 # Skip crates with multiple versions from upstream dependencies that we cannot control
 # These are primarily from reth, alloy, and upstream dependencies
@@ -373,7 +373,6 @@ skip = ["x509-parser",
     "primitive-types",
     "procfs",
     "procfs-core",
-    "redox_syscall",
     "reqwest-middleware",
     "ring",
     "rustix",
