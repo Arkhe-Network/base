@@ -1,6 +1,7 @@
-use crate::mhd::EvoField;
 use ndarray::prelude::*;
 use serde::{Deserialize, Serialize};
+
+use crate::mhd::EvoField;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Shadow {
     pub energy_ratio: f64,

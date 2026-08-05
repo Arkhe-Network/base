@@ -205,6 +205,7 @@ where
                 withdrawals,
 
                 slot_number: None,
+                target_gas_limit: None,
             },
             transactions: Some(txs),
             no_tx_pool: Some(true),
@@ -491,6 +492,7 @@ mod tests {
                 withdrawals: None,
 
                 slot_number: None,
+                target_gas_limit: None,
             },
             transactions: payload.transactions.clone(),
             no_tx_pool: Some(true),
@@ -545,6 +547,7 @@ mod tests {
                 withdrawals: Some(Vec::default()),
 
                 slot_number: None,
+                target_gas_limit: None,
             },
             transactions: payload.transactions.clone(),
             no_tx_pool: Some(true),
@@ -600,6 +603,7 @@ mod tests {
                 withdrawals: Some(vec![]),
 
                 slot_number: None,
+                target_gas_limit: None,
             },
             transactions: payload.transactions.clone(),
             no_tx_pool: Some(true),
@@ -654,6 +658,7 @@ mod tests {
                 withdrawals: Some(vec![]),
 
                 slot_number: None,
+                target_gas_limit: None,
             },
             transactions: payload.transactions.clone(),
             no_tx_pool: Some(true),

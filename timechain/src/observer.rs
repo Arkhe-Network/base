@@ -1,5 +1,6 @@
-use crate::mhd::EvoField;
 use serde::{Deserialize, Serialize};
+
+use crate::mhd::EvoField;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ObserverState {
     pub attachment: f64,

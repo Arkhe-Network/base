@@ -1,8 +1,10 @@
-use ::timechain::*;
-use ::timechain::auth_kem::*;
-use ::timechain::network::{NetworkMessage, P2PNode};
-use std::time::Duration;
-use std::net::SocketAddr;
+use std::{net::SocketAddr, time::Duration};
+
+use ::timechain::{
+    auth_kem::*,
+    network::{NetworkMessage, P2PNode},
+    *,
+};
 
 #[tokio::main]
 async fn main() {
@@ -21,17 +23,11 @@ async fn main() {
     // Test 100 encapsulated keys
     let rounds = 100;
     for _step in 0..rounds {
-        let (encap, _ss1) = AuthenticatedKem::encapsulate_auth(
-            &sender_keys,
-            &receiver_keys.identity,
-            context,
-        ).unwrap();
+        let (encap, _ss1) =
+            AuthenticatedKem::encapsulate_auth(&sender_keys, &receiver_keys.identity, context)
+                .unwrap();
 
-        let _ss2 = AuthenticatedKem::decapsulate_auth(
-            &receiver_keys,
-            &encap,
-            context,
-        ).unwrap();
+        let _ss2 = AuthenticatedKem::decapsulate_auth(&receiver_keys, &encap, context).unwrap();
     }
 
     let duration = start.elapsed();
@@ -51,7 +47,8 @@ async fn main() {
             if let Ok(mut node) = P2PNode::new(addr, config_clone).await {
                 // To simulate we just establish the handshakes with node 0 (if i > 0)
                 if i > 0 {
-                    let target_addr: SocketAddr = format!("127.0.0.1:{}", base_port).parse().unwrap();
+                    let target_addr: SocketAddr =
+                        format!("127.0.0.1:{}", base_port).parse().unwrap();
                     let _ = node.initiate_handshake(target_addr).await;
                 }
 

@@ -1,6 +1,5 @@
+use pqcrypto_traits::{kem::PublicKey as _, sign::PublicKey as _};
 use timechain::auth_kem::PqcKeyMaterial;
-use pqcrypto_traits::sign::PublicKey as _;
-use pqcrypto_traits::kem::PublicKey as _;
 
 #[test]
 fn test_shors_attack_symbolic() {

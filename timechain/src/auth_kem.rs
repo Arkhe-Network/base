@@ -1,11 +1,15 @@
-use crate::pqc::{generate_node_keys, QuantumBlockSignature};
+use pqcrypto_dilithium::dilithium5::{
+    PublicKey as QuantumPublicKey, SecretKey as QuantumSecretKey,
+};
 use pqcrypto_kyber::kyber1024::{PublicKey as KemPublicKey, SecretKey as KemSecretKey};
-use pqcrypto_dilithium::dilithium5::{PublicKey as QuantumPublicKey, SecretKey as QuantumSecretKey};
-use pqcrypto_traits::sign::PublicKey as DsaPublicKeyTrait;
-use pqcrypto_traits::kem::PublicKey as KemPublicKeyTrait;
-use crate::error::TimechainError;
+use pqcrypto_traits::{kem::PublicKey as KemPublicKeyTrait, sign::PublicKey as DsaPublicKeyTrait};
 use serde::{Deserialize, Serialize};
-use sha3::{Sha3_256, Digest};
+use sha3::{Digest, Sha3_256};
+
+use crate::{
+    error::TimechainError,
+    pqc::{QuantumBlockSignature, generate_node_keys},
+};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AuthEncap {
@@ -54,11 +58,7 @@ impl PqcKeyMaterial {
         let (dsa_pk, dsa_sk) = generate_node_keys();
         let (kem_pk, kem_sk) = pqcrypto_kyber::kyber1024::keypair();
         let identity = PqcIdentity::new(&dsa_pk, &kem_pk);
-        Self {
-            dsa_secret_key: dsa_sk,
-            kem_secret_key: kem_sk,
-            identity,
-        }
+        Self { dsa_secret_key: dsa_sk, kem_secret_key: kem_sk, identity }
     }
 }
 
@@ -69,12 +69,15 @@ impl AuthenticatedKem {
         _: &PqcIdentity,
         _: &[u8],
     ) -> Result<(AuthEncap, [u8; 32]), TimechainError> {
-        Ok((AuthEncap {
-            ciphertext: vec![],
-            sender_signature: QuantumBlockSignature(vec![]),
-            sender_public_key: vec![],
-            context_nonce: [0; 32],
-        }, [0; 32]))
+        Ok((
+            AuthEncap {
+                ciphertext: vec![],
+                sender_signature: QuantumBlockSignature(vec![]),
+                sender_public_key: vec![],
+                context_nonce: [0; 32],
+            },
+            [0; 32],
+        ))
     }
     pub fn decapsulate_auth(
         _: &PqcKeyMaterial,
