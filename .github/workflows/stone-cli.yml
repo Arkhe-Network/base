@@ -5,7 +5,7 @@ on:
   push:
     branches: [main, develop]
     paths:
-      - 'cairo/**'
+      - 'governance/engine/cairo/**'
       - '.github/workflows/stone-cli.yml'
   pull_request:
     branches: [main]
@@ -32,7 +32,7 @@ jobs:
 
       - name: Compile Cairo programs
         run: |
-          cd cairo
+          cd governance/engine/cairo
           scarb build --release
 
       - name: Upload CASM artifacts
@@ -40,8 +40,8 @@ jobs:
         with:
           name: cairo-artifacts
           path: |
-            cairo/target/release/*.casm.json
-            cairo/target/release/*.sierra.json
+            governance/engine/cairo/target/release/*.casm.json
+            governance/engine/cairo/target/release/*.sierra.json
           retention-days: 7
 
   # ========================================================================
@@ -77,7 +77,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: cairo-artifacts
-          path: cairo/target/release/
+          path: governance/engine/cairo/target/release/
 
       - name: Install stone-cli
         run: |
@@ -92,8 +92,8 @@ jobs:
           for program in governance_consensus policy_evaluation; do
             echo "🔐 Generating proof for $program"
             stone-cli prove \
-              --program cairo/target/release/${program}.casm.json \
-              --program-input cairo/inputs/${program}.json \
+              --program governance/engine/cairo/target/release/${program}.casm.json \
+              --program-input governance/engine/cairo/inputs/${program}.json \
               --output proofs/${program}_proof.json \
               --public-output proofs/${program}_public.json \
               --trace proofs/${program}_trace.bin
@@ -147,12 +147,12 @@ jobs:
         run: |
           stone-cli serialize-proof \
             --proof proofs/governance_consensus_proof.json \
-            --output contracts/verifiers/STARKVerifier.sol \
+            --output governance/engine/contracts/verifiers/STARKVerifier.sol \
             --target evm
 
       - name: Deploy verifier to Sepolia
         run: |
-          forge script script/DeploySTARKVerifier.s.sol:DeploySTARKVerifier \
+          forge script governance/engine/script/DeploySTARKVerifier.s.sol:DeploySTARKVerifier \
             --rpc-url ${{ secrets.SEPOLIA_RPC_URL }} \
             --private-key ${{ secrets.DEPLOYER_PRIVATE_KEY }} \
             --broadcast \
@@ -161,14 +161,14 @@ jobs:
 
       - name: Verify proof on-chain
         run: |
-          forge script script/VerifySTARKProof.s.sol:VerifySTARKProof \
+          forge script governance/engine/script/VerifySTARKProof.s.sol:VerifySTARKProof \
             --rpc-url ${{ secrets.SEPOLIA_RPC_URL }} \
             --private-key ${{ secrets.VERIFIER_PRIVATE_KEY }} \
             --broadcast
 
       - name: Register fact on-chain
         run: |
-          forge script script/RegisterFact.s.sol:RegisterFact \
+          forge script governance/engine/script/RegisterFact.s.sol:RegisterFact \
             --rpc-url ${{ secrets.SEPOLIA_RPC_URL }} \
             --private-key ${{ secrets.VERIFIER_PRIVATE_KEY }} \
             --broadcast

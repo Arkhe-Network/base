@@ -1,6 +1,6 @@
 [submodule "buzz"]
 	path = buzz
 	url = https://github.com/block/buzz
-[submodule "lib/forge-std"]
-	path = lib/forge-std
+[submodule "governance/engine/lib/forge-std"]
+	path = governance/engine/lib/forge-std
 	url = https://github.com/foundry-rs/forge-std
