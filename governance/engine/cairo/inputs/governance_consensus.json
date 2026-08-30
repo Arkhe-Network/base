@@ -1,0 +1,5 @@
+{
+  "phi_values": [90, 85, 78],
+  "weights": [3, 2, 1],
+  "threshold": 85
+}
