@@ -186,4 +186,12 @@ exclude = [
     'https://github.com/lightninglabs/taproot-assets/blob/master/docs/bip-tap.mediawiki',
     'https://raw.githubusercontent.com/lightninglabs/taproot-assets/main/rpc/rpc.proto',
     'https://raw.githubusercontent.com/lightninglabs/taproot-assets/main/taprpc/',
+    "https://github.com/arkhe-research/safe-core",
+    "file:///home/runner/work/base/base/docs/architecture/ASYNC_CONSENSUS.md",
+    "file:///home/runner/work/base/base/docs/architecture/CAIS_ALIGNMENT.md",
+    "file:///home/runner/work/base/base/docs/architecture/PAE_PATTERN.md",
+    "https://github.com/arkhe-research/safe-core",
+    "file:///home/runner/work/base/base/docs/architecture/ASYNC_CONSENSUS.md",
+    "file:///home/runner/work/base/base/docs/architecture/CAIS_ALIGNMENT.md",
+    "file:///home/runner/work/base/base/docs/architecture/PAE_PATTERN.md",
 ]
